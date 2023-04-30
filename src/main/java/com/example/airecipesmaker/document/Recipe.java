@@ -1,4 +1,4 @@
-package com.example.airecipesmaker.Document;
+package com.example.airecipesmaker.document;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 

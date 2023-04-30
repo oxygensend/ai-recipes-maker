@@ -1,6 +1,6 @@
-package com.example.airecipesmaker.Document;
+package com.example.airecipesmaker.document;
 
-import com.example.airecipesmaker.Document.util.Unit;
+import com.example.airecipesmaker.document.util.Unit;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("products")

@@ -1,15 +1,14 @@
 package com.example.airecipesmaker.service;
 
 import com.example.airecipesmaker.dto.RecipeRequestDTO;
-import com.example.airecipesmaker.Document.Product;
-import com.example.airecipesmaker.Document.Recipe;
+import com.example.airecipesmaker.document.Product;
+import com.example.airecipesmaker.document.Recipe;
 import com.example.airecipesmaker.openai.ChatCompletion;
 import com.example.airecipesmaker.exception.CannotGenerateRecipeException;
 import com.example.airecipesmaker.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 public class RecipeService {

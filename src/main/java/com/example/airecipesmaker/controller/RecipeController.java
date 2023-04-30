@@ -1,7 +1,7 @@
 package com.example.airecipesmaker.controller;
 
 import com.example.airecipesmaker.dto.RecipeRequestDTO;
-import com.example.airecipesmaker.Document.Recipe;
+import com.example.airecipesmaker.document.Recipe;
 import com.example.airecipesmaker.service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 import com.example.airecipesmaker.repository.RecipeRepository;

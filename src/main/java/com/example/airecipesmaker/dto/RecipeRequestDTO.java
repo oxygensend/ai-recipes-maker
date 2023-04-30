@@ -1,6 +1,6 @@
 package com.example.airecipesmaker.dto;
 
-import com.example.airecipesmaker.Document.Product;
+import com.example.airecipesmaker.document.Product;
 
 import java.util.Set;
 

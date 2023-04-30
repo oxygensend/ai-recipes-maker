@@ -1,8 +1,8 @@
 package com.example.airecipesmaker.unit.service;
 
-import com.example.airecipesmaker.Document.Product;
-import com.example.airecipesmaker.Document.Recipe;
-import com.example.airecipesmaker.Document.util.Unit;
+import com.example.airecipesmaker.document.Product;
+import com.example.airecipesmaker.document.Recipe;
+import com.example.airecipesmaker.document.util.Unit;
 import com.example.airecipesmaker.dto.RecipeRequestDTO;
 import com.example.airecipesmaker.exception.CannotGenerateRecipeException;
 import com.example.airecipesmaker.openai.ChatCompletion;
@@ -16,12 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 

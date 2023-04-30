@@ -1,4 +1,4 @@
-package com.example.airecipesmaker.Document.util;
+package com.example.airecipesmaker.document.util;
 
 public enum Unit {
 
