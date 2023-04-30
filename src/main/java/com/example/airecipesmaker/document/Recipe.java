@@ -1,5 +1,7 @@
 package com.example.airecipesmaker.document;
 
+import com.example.airecipesmaker.views.RecipeView;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -7,10 +9,14 @@ import java.util.Set;
 
 @Document("recipes")
 public class Recipe extends AbstractDocument {
+
+    @JsonView({RecipeView.GetAll.class, RecipeView.GetOne.class})
     private String content;
 
+    @JsonView(RecipeView.GetOne.class)
     private Set<Product> products;
 
+    @JsonView(RecipeView.GetOne.class)
     private Date createdAt;
 
     public Recipe() {

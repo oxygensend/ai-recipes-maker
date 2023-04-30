@@ -1,13 +1,18 @@
 package com.example.airecipesmaker.document;
 
 import com.example.airecipesmaker.document.util.Unit;
+import com.example.airecipesmaker.views.RecipeView;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("products")
 public class Product extends AbstractDocument {
 
+    @JsonView(RecipeView.GetOne.class)
     private String name;
+    @JsonView(RecipeView.GetOne.class)
     private double quantity;
+    @JsonView(RecipeView.GetOne.class)
     private Unit unit;
 
     public Product() {

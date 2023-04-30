@@ -1,10 +1,12 @@
 package com.example.airecipesmaker.controller;
 
-import com.example.airecipesmaker.dto.RecipeRequestDTO;
+import com.example.airecipesmaker.dto.request.RecipeRequestDTO;
 import com.example.airecipesmaker.document.Recipe;
+import com.example.airecipesmaker.dto.response.CreateFewRecipesResponseDTO;
 import com.example.airecipesmaker.service.RecipeService;
+import com.example.airecipesmaker.views.RecipeView;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.web.bind.annotation.*;
-import com.example.airecipesmaker.repository.RecipeRepository;
 
 import java.util.List;
 
@@ -12,21 +14,31 @@ import java.util.List;
 @RequestMapping("recipes")
 public class RecipeController {
 
-    private final RecipeRepository recipeRepository;
     private final RecipeService recipeService;
 
-    RecipeController(RecipeRepository historyRepository, RecipeService recipeService) {
-        this.recipeRepository = historyRepository;
+    RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
     @GetMapping
+    @JsonView(RecipeView.GetAll.class)
     public List<Recipe> allAction() {
-        return recipeRepository.findAll();
+        return recipeService.getAllRecipes();
     }
 
     @PostMapping
     public Recipe newAction(@RequestBody RecipeRequestDTO requestDTO) {
         return recipeService.createRecipe(requestDTO);
+    }
+
+    @GetMapping("/{id}")
+    @JsonView(RecipeView.GetOne.class)
+    public Recipe getOneAction(@PathVariable("id") String id) {
+        return recipeService.getOneRecipe(id);
+    }
+
+    @PostMapping("/few_propositions")
+    public CreateFewRecipesResponseDTO createFewRecipes(@RequestBody RecipeRequestDTO requestDTO){
+        return  recipeService.createFewRecipes(requestDTO);
     }
 }

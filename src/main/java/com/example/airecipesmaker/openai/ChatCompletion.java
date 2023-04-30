@@ -26,14 +26,20 @@ public class ChatCompletion implements GenerateRecipeInterface {
         this.logger = Logger.getLogger(ChatCompletion.class.getName());
     }
 
-    public String generateRecipeQuestion(List<String> products) throws CannotGenerateRecipeException {
-        String message = "Stwórz prosze przepis z podanych produktów: " + products;
+    public String generateRecipeQuestion(List<String> products, int intances) throws CannotGenerateRecipeException {
 
-        this.logger.info("Sending question: " + message + " to chat completion");
-        String response = this.getResponseFromChat(message);
-        this.logger.info("Getting response from chat for message: " + message);
+        String message;
+        if (intances == 1) {
+            message = "Stwórz prosze przepis z podanych produktów: " + products;
+        } else {
+            message = "Stwórz " + intances + " propozycji na przepis z podanych produktów: " + products + "Odpowiedź zwróć w formacie json {\"przepis_1\" : \"tresc przepisu\",\"przepis_1\" : \"tresc przepisu\"} prosze";
+        }
 
-        if (this.failureDetection.detect(response)) {
+        logger.info("Sending question: " + message + " to chat completion");
+        String response = getResponseFromChat(message);
+        logger.info("Getting response from chat for message: " + message);
+
+        if (failureDetection.detect(response)) {
             throw new CannotGenerateRecipeException("Recipe cannot be generated due to missing data");
         }
 
@@ -43,22 +49,22 @@ public class ChatCompletion implements GenerateRecipeInterface {
 
     private void addMessage(String message) {
         ChatMessage chatMessage = new ChatMessage("user", message);
-        this.chatMessageList.add(chatMessage);
+        chatMessageList.add(chatMessage);
     }
 
     private ChatCompletionRequest buildRequest() {
         return ChatCompletionRequest
                 .builder()
-                .messages(this.chatMessageList)
+                .messages(chatMessageList)
                 .model("gpt-3.5-turbo")
                 .build();
     }
 
     private String getResponseFromChat(String message) {
-        this.addMessage(message);
+        addMessage(message);
         ChatCompletionRequest completionRequest = this.buildRequest();
 
-        return this.openAiService
+        return openAiService
                 .createChatCompletion(completionRequest)
                 .getChoices()
                 .get(0)

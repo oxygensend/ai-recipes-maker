@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
+
 @Configuration
 public class OpenAiConfiguration {
     @Value("${open.ai.secret-key}")
@@ -12,7 +14,7 @@ public class OpenAiConfiguration {
 
     @Bean
     public OpenAiService openAiService() {
-        return new OpenAiService(secretKey);
+        return new OpenAiService(secretKey, Duration.ofSeconds(30));
     }
 
 }

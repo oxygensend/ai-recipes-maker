@@ -14,7 +14,7 @@ public class FailureDetection {
     private final Pattern pattern;
 
     FailureDetection() {
-        List<String> keywords = Arrays.asList("niestety", "nie umiem", "przykro mi", "przepraszam, ale", "nie potrawie", "nie mam możliwości", "zbyt mało informacji", "nie podano", "nie jest wystarczający", "sorry, i could not", "sorry, i can not");
+        List<String> keywords = Arrays.asList("niestety", "nie umiem", "przykro mi", "przepraszam, ale", "nie potrawie", "nie mam możliwości", "zbyt mało informacji", "nie podano", "nie jest wystarczający", "sorry, i could not", "sorry, i can not", "przepraszam, jako sztuczna inteligencja", "Jako asystent językowy, nie jestem w stanie");
         String stringPattern = String.join("|", keywords);
         this.pattern = Pattern.compile("(?i)(" + stringPattern + ")");
     }
