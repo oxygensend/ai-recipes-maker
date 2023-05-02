@@ -57,7 +57,7 @@ public class ChatCompletionTest {
 
         doReturn(chatCompletionResult).when(openAiService).createChatCompletion(any(ChatCompletionRequest.class));
 
-        String response = chatCompletion.generateRecipeQuestion(products, 1);
+        String response = chatCompletion.generateRecipeQuestion(products, 1, "śniadanie");
 
         verify(openAiService, times(1)).createChatCompletion(any(ChatCompletionRequest.class));
         assertEquals("Recipe: pancakes", response);
@@ -80,6 +80,6 @@ public class ChatCompletionTest {
 
         doReturn(chatCompletionResult).when(openAiService).createChatCompletion(any(ChatCompletionRequest.class));
 
-        assertThrows(CannotGenerateRecipeException.class, () -> chatCompletion.generateRecipeQuestion(products, 3));
+        assertThrows(CannotGenerateRecipeException.class, () -> chatCompletion.generateRecipeQuestion(products, 3, "śniadanie"));
     }
 }

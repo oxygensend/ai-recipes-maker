@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface GenerateRecipeInterface {
 
-    String generateRecipeQuestion(List<String> products, int instances) throws CannotGenerateRecipeException;
+    String generateRecipeQuestion(List<String> products, int instances, String type) throws CannotGenerateRecipeException;
 }

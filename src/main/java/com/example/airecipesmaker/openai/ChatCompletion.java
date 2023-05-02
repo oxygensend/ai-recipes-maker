@@ -21,13 +21,13 @@ public class ChatCompletion implements GenerateRecipeInterface {
     private final List<ChatMessage> chatMessageList = new ArrayList<>();
 
 
-    public String generateRecipeQuestion(List<String> products, int intances) throws CannotGenerateRecipeException {
+    public String generateRecipeQuestion(List<String> products, int instances, String type) throws CannotGenerateRecipeException {
 
         String message;
-        if (intances == 1) {
-            message = "Stwórz prosze przepis z podanych produktów: " + products;
+        if (instances == 1) {
+            message = "Stwórz prosze " + type + " przepis z podanych produktów: " + products;
         } else {
-            message = "Stwórz " + intances + " propozycji na przepis z podanych produktów: " + products + "Odpowiedź zwróć w formacie json {\"przepis_1\" : \"tresc przepisu\",\"przepis_1\" : \"tresc przepisu\"} prosze";
+            message = "Stwórz " + instances + " propozycji na " + type + " przepis z podanych produktów: " + products + "Odpowiedź zwróć w formacie json {\"przepis_1\" : \"tresc przepisu\",\"przepis_1\" : \"tresc przepisu\"} prosze";
         }
 
         log.info("Sending question: " + message + " to chat completion");

@@ -15,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Recipe extends AbstractDocument {
 
+
     @NonNull
     @JsonView({RecipeView.GetAll.class, RecipeView.GetOne.class})
     private String content;
@@ -22,6 +23,10 @@ public class Recipe extends AbstractDocument {
     @NonNull
     @JsonView(RecipeView.GetOne.class)
     private Set<Product> products;
+
+
+    @NonNull
+    private String type;
 
     @Builder.Default
     @JsonView(RecipeView.GetOne.class)

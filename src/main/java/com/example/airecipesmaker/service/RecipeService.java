@@ -1,6 +1,7 @@
 package com.example.airecipesmaker.service;
 
-import com.example.airecipesmaker.dto.request.RecipeRequestDTO;
+import com.example.airecipesmaker.dto.request.CreateFewRecipesRequestDTO;
+import com.example.airecipesmaker.dto.request.CreateRecipeRequestDTO;
 import com.example.airecipesmaker.document.Product;
 import com.example.airecipesmaker.document.Recipe;
 import com.example.airecipesmaker.dto.response.CreateFewRecipesResponseDTO;
@@ -26,24 +27,25 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
 
 
-    public Recipe createRecipe(RecipeRequestDTO requestDTO) throws CannotGenerateRecipeException {
+    public Recipe createRecipe(CreateRecipeRequestDTO requestDTO) throws CannotGenerateRecipeException {
 
         List<String> products = requestDTO.getProducts().stream().map(Product::toString).toList();
-        String generatedRecipe = chatCompletion.generateRecipeQuestion(products, requestDTO.getInstances());
+        String generatedRecipe = chatCompletion.generateRecipeQuestion(products, 1, requestDTO.getType());
 
         return recipeRepository.insert(
                 Recipe.builder()
                         .products(requestDTO.getProducts())
                         .content(generatedRecipe)
+                        .type(requestDTO.getType())
                         .build()
         );
     }
 
     @SuppressWarnings(value = "unchecked")
-    public CreateFewRecipesResponseDTO createFewRecipes(RecipeRequestDTO requestDTO) throws CannotGenerateRecipeException {
+    public CreateFewRecipesResponseDTO createFewRecipes(CreateFewRecipesRequestDTO requestDTO) throws CannotGenerateRecipeException {
 
         List<String> products = requestDTO.getProducts().stream().map(Product::toString).toList();
-        String generatedResponse = chatCompletion.generateRecipeQuestion(products, requestDTO.getInstances());
+        String generatedResponse = chatCompletion.generateRecipeQuestion(products, requestDTO.getInstances(), requestDTO.getType());
 
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -54,6 +56,7 @@ public class RecipeService {
                         Recipe.builder()
                                 .products(requestDTO.getProducts())
                                 .content(entry.getValue())
+                                .type(requestDTO.getType())
                                 .build()
                 );
 
@@ -63,6 +66,7 @@ public class RecipeService {
                     .builder()
                     .propositions(recipesMap.values().stream().toList())
                     .products(requestDTO.getProducts())
+                    .type(requestDTO.getType())
                     .build();
         } catch (JsonProcessingException e) {
             throw new CannotGenerateRecipeException(e.getMessage());

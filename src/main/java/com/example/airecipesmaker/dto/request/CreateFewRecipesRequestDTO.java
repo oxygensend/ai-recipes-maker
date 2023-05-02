@@ -1,18 +1,17 @@
 package com.example.airecipesmaker.dto.request;
 
-import com.example.airecipesmaker.document.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecipeRequestDTO {
+public class CreateFewRecipesRequestDTO extends CreateRecipeRequestDTO {
 
-    private Set<Product> products;
-    private int instances = 1;
+    private int instances;
 
 }

@@ -15,4 +15,5 @@ import java.util.Set;
 public class CreateFewRecipesResponseDTO {
     private List<String> propositions;
     private Set<Product> products;
+    private String type;
 }

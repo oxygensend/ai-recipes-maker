@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -32,6 +33,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleCustomException(AbstractException ex) {
        ApiException apiException = new ApiException(ex.getStatusCode(), ex.getMessage());
        return buildResponseEntity(apiException);
+    }
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        ApiException apiException = new ApiException(HttpStatus.BAD_REQUEST, "Validation error");
+        apiException.addValidationErrors(ex.getBindingResult().getFieldErrors());
+        apiException.addValidationException(ex.getBindingResult().getGlobalErrors());
+        return buildResponseEntity(apiException);
     }
 
     private ResponseEntity<Object> buildResponseEntity(ApiException apiException) {

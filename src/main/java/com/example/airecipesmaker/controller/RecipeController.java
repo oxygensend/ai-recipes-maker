@@ -1,12 +1,14 @@
 package com.example.airecipesmaker.controller;
 
-import com.example.airecipesmaker.dto.request.RecipeRequestDTO;
+import com.example.airecipesmaker.dto.request.CreateFewRecipesRequestDTO;
+import com.example.airecipesmaker.dto.request.CreateRecipeRequestDTO;
 import com.example.airecipesmaker.document.Recipe;
 import com.example.airecipesmaker.dto.response.CreateFewRecipesResponseDTO;
 import com.example.airecipesmaker.service.RecipeService;
 import com.example.airecipesmaker.views.RecipeView;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class RecipeController {
     }
 
     @PostMapping
-    public Recipe newAction(@RequestBody RecipeRequestDTO requestDTO) {
+    public Recipe newAction(@RequestBody @Validated CreateRecipeRequestDTO requestDTO) {
         return recipeService.createRecipe(requestDTO);
     }
 
@@ -36,7 +38,7 @@ public class RecipeController {
     }
 
     @PostMapping("/few_propositions")
-    public CreateFewRecipesResponseDTO createFewRecipes(@RequestBody RecipeRequestDTO requestDTO){
+    public CreateFewRecipesResponseDTO createFewRecipes(@RequestBody @Validated CreateFewRecipesRequestDTO requestDTO){
         return  recipeService.createFewRecipes(requestDTO);
     }
 }
