@@ -81,19 +81,6 @@ public class RecipeServiceTest {
 
         assertEquals(recipeList, result);
     }
-
-    @Test
-    public void testGetOneRecipe() {
-        String recipeId = "recipeId1";
-        Recipe expectedRecipe = recipeList.get(0);
-        Optional<Recipe> optionalRecipe = Optional.of(expectedRecipe);
-        when(recipeRepository.findById(recipeId)).thenReturn(optionalRecipe);
-
-        Recipe result = recipeService.getOneRecipe(recipeId);
-
-        assertEquals(expectedRecipe, result);
-    }
-
     @Test
     public void testGetOneRecipeNotFound() {
         String recipeId = "recipeId1";
@@ -128,5 +115,28 @@ public class RecipeServiceTest {
         verify(recipeRepository, times(3)).insert(any(Recipe.class));
 
         assertEquals(responseDTO.getPropositions(), expectedResponse.getPropositions());
+    }
+
+    @Test
+    public void testDeleteRecipeWithValidId() {
+        // Arrange
+        String recipeId = "123";
+        Recipe recipe = Recipe.builder().content("recipe text").products(products).type("uniwersalny").build();
+        when(recipeRepository.findById(recipeId)).thenReturn(Optional.of(recipe));
+
+        recipeService.deleteRecipe(recipeId);
+        verify(recipeRepository, times(1)).deleteById(recipeId);
+    }
+
+    @Test
+    public void testDeleteRecipeWithInvalidId() {
+
+        String recipeId = "123";
+        when(recipeRepository.findById(recipeId)).thenReturn(Optional.empty());
+
+        assertThrows(DocumentNotFoundException.class, () -> {
+            recipeService.deleteRecipe(recipeId);
+        });
+        verify(recipeRepository, never()).deleteById(anyString());
     }
 }

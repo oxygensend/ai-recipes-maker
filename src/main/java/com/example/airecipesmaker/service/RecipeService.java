@@ -83,4 +83,12 @@ public class RecipeService {
         Optional<Recipe> recipe = recipeRepository.findById(id);
         return recipe.orElseThrow(() -> new DocumentNotFoundException("No recipe found with id " + id));
     }
+
+    public void deleteRecipe(String id) {
+        if (recipeRepository.findById(id).isPresent()) {
+            recipeRepository.deleteById(id);
+        } else {
+            throw new DocumentNotFoundException("No recipe found with id " + id);
+        }
+    }
 }
