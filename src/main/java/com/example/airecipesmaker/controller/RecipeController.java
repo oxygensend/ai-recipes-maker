@@ -6,19 +6,17 @@ import com.example.airecipesmaker.dto.response.CreateFewRecipesResponseDTO;
 import com.example.airecipesmaker.service.RecipeService;
 import com.example.airecipesmaker.views.RecipeView;
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("recipes")
 public class RecipeController {
 
     private final RecipeService recipeService;
-
-    RecipeController(RecipeService recipeService) {
-        this.recipeService = recipeService;
-    }
 
     @GetMapping
     @JsonView(RecipeView.GetAll.class)

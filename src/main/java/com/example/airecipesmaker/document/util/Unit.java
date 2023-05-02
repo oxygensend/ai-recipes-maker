@@ -1,5 +1,10 @@
 package com.example.airecipesmaker.document.util;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Unit {
 
     MG("mg"),
@@ -9,14 +14,6 @@ public enum Unit {
     L("l"),
     QUANTITY("quantity");
 
-
     private final String name;
 
-    Unit(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

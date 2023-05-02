@@ -4,27 +4,22 @@ import com.example.airecipesmaker.exception.CannotGenerateRecipeException;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
+@Log
 public class ChatCompletion implements GenerateRecipeInterface {
 
     private final OpenAiService openAiService;
     private final FailureDetection failureDetection;
-    private final List<ChatMessage> chatMessageList;
-    private final Logger logger;
+    private final List<ChatMessage> chatMessageList = new ArrayList<>();
 
-    public ChatCompletion(OpenAiService openAiService, FailureDetection failureDetection) {
-
-        this.openAiService = openAiService;
-        this.failureDetection = failureDetection;
-        this.chatMessageList = new ArrayList<>();
-        this.logger = Logger.getLogger(ChatCompletion.class.getName());
-    }
 
     public String generateRecipeQuestion(List<String> products, int intances) throws CannotGenerateRecipeException {
 
@@ -35,9 +30,9 @@ public class ChatCompletion implements GenerateRecipeInterface {
             message = "Stwórz " + intances + " propozycji na przepis z podanych produktów: " + products + "Odpowiedź zwróć w formacie json {\"przepis_1\" : \"tresc przepisu\",\"przepis_1\" : \"tresc przepisu\"} prosze";
         }
 
-        logger.info("Sending question: " + message + " to chat completion");
+        log.info("Sending question: " + message + " to chat completion");
         String response = getResponseFromChat(message);
-        logger.info("Getting response from chat for message: " + message);
+        log.info("Getting response from chat for message: " + message);
 
         if (failureDetection.detect(response)) {
             throw new CannotGenerateRecipeException("Recipe cannot be generated due to missing data");

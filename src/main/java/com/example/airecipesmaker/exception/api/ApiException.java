@@ -2,11 +2,13 @@ package com.example.airecipesmaker.exception.api;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiException {
     private HttpStatus status;
@@ -44,54 +46,4 @@ public class ApiException {
         this.debugMessage = exception.getLocalizedMessage();
     }
 
-    @Override
-    public String toString() {
-        return "ApiException{" +
-                "status=" + status +
-                ", timestamp=" + timestamp +
-                ", message='" + message + '\'' +
-                ", debugMessage='" + debugMessage + '\'' +
-                ", subExceptions=" + subExceptions +
-                '}';
-    }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(HttpStatus status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getDebugMessage() {
-        return debugMessage;
-    }
-
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
-    }
-
-    public List<AbstractApiSubException> getSubExceptions() {
-        return subExceptions;
-    }
-
-    public void setSubExceptions(List<AbstractApiSubException> subExceptions) {
-        this.subExceptions = subExceptions;
-    }
 }

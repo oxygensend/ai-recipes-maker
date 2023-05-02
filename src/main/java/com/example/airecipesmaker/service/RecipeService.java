@@ -10,28 +10,33 @@ import com.example.airecipesmaker.exception.CannotGenerateRecipeException;
 import com.example.airecipesmaker.repository.RecipeRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+
 @Service
+@AllArgsConstructor
 public class RecipeService {
 
     private final ChatCompletion chatCompletion;
     private final RecipeRepository recipeRepository;
 
-    public RecipeService(ChatCompletion chatCompletion, RecipeRepository recipeRepository) {
-        this.chatCompletion = chatCompletion;
-        this.recipeRepository = recipeRepository;
-    }
 
     public Recipe createRecipe(RecipeRequestDTO requestDTO) throws CannotGenerateRecipeException {
 
         List<String> products = requestDTO.getProducts().stream().map(Product::toString).toList();
         String generatedRecipe = chatCompletion.generateRecipeQuestion(products, requestDTO.getInstances());
-        return recipeRepository.insert(new Recipe(generatedRecipe, requestDTO.getProducts()));
+
+        return recipeRepository.insert(
+                Recipe.builder()
+                        .products(requestDTO.getProducts())
+                        .content(generatedRecipe)
+                        .build()
+        );
     }
 
     @SuppressWarnings(value = "unchecked")
@@ -45,10 +50,20 @@ public class RecipeService {
             Map<String, String> recipesMap = mapper.readValue(generatedResponse, Map.class);
 
             for (Map.Entry<String, String> entry : recipesMap.entrySet()) {
-                recipeRepository.insert(new Recipe(entry.getValue(), requestDTO.getProducts()));
+                recipeRepository.insert(
+                        Recipe.builder()
+                                .products(requestDTO.getProducts())
+                                .content(entry.getValue())
+                                .build()
+                );
+
             }
 
-            return new CreateFewRecipesResponseDTO(recipesMap.values().stream().toList(), requestDTO.getProducts());
+            return CreateFewRecipesResponseDTO
+                    .builder()
+                    .propositions(recipesMap.values().stream().toList())
+                    .products(requestDTO.getProducts())
+                    .build();
         } catch (JsonProcessingException e) {
             throw new CannotGenerateRecipeException(e.getMessage());
         }
