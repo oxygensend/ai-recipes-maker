@@ -3,6 +3,7 @@ package com.example.airecipesmaker.document;
 import com.example.airecipesmaker.document.util.Unit;
 import com.example.airecipesmaker.views.RecipeView;
 import com.fasterxml.jackson.annotation.JsonView;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,10 +17,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 public class Product extends AbstractDocument {
 
+    @NotBlank
     @JsonView(RecipeView.GetOne.class)
     private String name;
+
     @JsonView(RecipeView.GetOne.class)
     private double quantity;
+
     @JsonView(RecipeView.GetOne.class)
     private Unit unit;
 

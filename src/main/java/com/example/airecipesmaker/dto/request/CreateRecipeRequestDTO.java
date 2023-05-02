@@ -2,8 +2,9 @@ package com.example.airecipesmaker.dto.request;
 
 import com.example.airecipesmaker.document.Product;
 import com.example.airecipesmaker.validator.recipeType.ValidRecipeType;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,8 @@ import java.util.Set;
 public class CreateRecipeRequestDTO {
 
     @NotEmpty
-    protected Set<@NotBlank Product> products;
+    @Valid
+    protected Set<@NotNull Product> products;
 
     @ValidRecipeType
     protected String type = "uniwersalny";
