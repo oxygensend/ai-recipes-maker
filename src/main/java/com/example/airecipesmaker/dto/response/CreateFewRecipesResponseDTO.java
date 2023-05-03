@@ -1,6 +1,6 @@
 package com.example.airecipesmaker.dto.response;
 
-import com.example.airecipesmaker.document.Product;
+import com.example.airecipesmaker.document.util.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

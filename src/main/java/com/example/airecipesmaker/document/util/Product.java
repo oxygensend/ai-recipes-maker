@@ -1,21 +1,16 @@
-package com.example.airecipesmaker.document;
+package com.example.airecipesmaker.document.util;
 
-import com.example.airecipesmaker.document.util.Unit;
 import com.example.airecipesmaker.views.RecipeView;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.*;
 
-@EqualsAndHashCode(callSuper = true)
-@Document("products")
-@Data
+
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product extends AbstractDocument {
+public class Product {
 
     @NotBlank
     @JsonView(RecipeView.GetOne.class)

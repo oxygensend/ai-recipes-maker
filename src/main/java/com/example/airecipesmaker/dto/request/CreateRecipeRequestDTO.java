@@ -1,6 +1,6 @@
 package com.example.airecipesmaker.dto.request;
 
-import com.example.airecipesmaker.document.Product;
+import com.example.airecipesmaker.document.util.Product;
 import com.example.airecipesmaker.validator.recipeType.ValidRecipeType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;

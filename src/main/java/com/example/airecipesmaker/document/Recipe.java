@@ -1,5 +1,6 @@
 package com.example.airecipesmaker.document;
 
+import com.example.airecipesmaker.document.util.Product;
 import com.example.airecipesmaker.views.RecipeView;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;

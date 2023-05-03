@@ -1,6 +1,6 @@
 package com.example.airecipesmaker.unit.service;
 
-import com.example.airecipesmaker.document.Product;
+import com.example.airecipesmaker.document.util.Product;
 import com.example.airecipesmaker.document.Recipe;
 import com.example.airecipesmaker.document.util.Unit;
 import com.example.airecipesmaker.dto.request.CreateFewRecipesRequestDTO;

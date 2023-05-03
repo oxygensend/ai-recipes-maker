@@ -2,7 +2,7 @@ package com.example.airecipesmaker.service;
 
 import com.example.airecipesmaker.dto.request.CreateFewRecipesRequestDTO;
 import com.example.airecipesmaker.dto.request.CreateRecipeRequestDTO;
-import com.example.airecipesmaker.document.Product;
+import com.example.airecipesmaker.document.util.Product;
 import com.example.airecipesmaker.document.Recipe;
 import com.example.airecipesmaker.dto.response.CreateFewRecipesResponseDTO;
 import com.example.airecipesmaker.exception.DocumentNotFoundException;
